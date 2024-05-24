@@ -1,0 +1,773 @@
+.data
+prompt: .asciiz "Enter command: "
+error: .asciiz "Unknown command\n"
+buffer: .space 100
+newline: .asciiz "\n"
+jokes: .asciiz "Why do programmers prefer dark mode? Because light attracts bugs!\n"
+song: .asciiz "C D E F G A B C D E\n"
+
+.text
+main:
+    # Print prompt
+    la $a0, prompt
+    li $v0, 4
+    syscall
+
+    # Read user input
+    li $v0, 8
+    la $a0, buffer
+    li $a1, 100
+    syscall
+
+    # Compare input with known commands
+    la $t0, buffer
+    li $t1, 'help'
+    li $t2, 'joke'
+    li $t3, 'songs'
+    li $t4, 'rev'
+    li $t5, 'cat'
+    li $t6, 'exit'
+
+    # Process commands
+    bne $t0, $t1, check_joke
+    # Help command
+    jal help
+    j main
+
+check_joke:
+    bne $t0, $t2, check_songs
+    # Joke command
+    jal joke
+    j main
+
+check_songs:
+    bne $t0, $t3, check_rev
+    # Songs command
+    jal songs
+    j main
+
+check_rev:
+    bne $t0, $t4, check_cat
+    # Rev command
+    jal rev
+    j main
+
+check_cat:
+    bne $t0, $t5, check_exit
+    # Cat command
+    jal cat
+    j main
+
+check_exit:
+    bne $t0, $t6, unknown_command
+    # Exit command
+    jal exit
+    j main
+
+unknown_command:
+    # Print error message
+    la $a0, error
+    li $v0, 4
+    syscall
+    j main
+
+help:
+    # Implement help command
+    jr $ra
+
+joke:
+    # Print a joke
+    la $a0, jokes
+    li $v0, 4
+    syscall
+    jr $ra
+
+songs:
+    # Play the song using MIDI
+    	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# DO#
+	li $v0, 31
+	li $a0, 73 # MIDI note for C#
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# RE
+	li $v0, 31
+	li $a0, 74 # MIDI note for D
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# MI
+	li $v0, 31
+	li $a0, 76 # MIDI note for E
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# RE
+	li $v0, 31
+	li $a0, 74 # MIDI note for D
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# MI
+	li $v0, 31
+	li $a0, 76 # MIDI note for E
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# MI
+	li $v0, 31
+	li $a0, 76 # MIDI note for E
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# MI
+	li $v0, 31
+	li $a0, 76 # MIDI note for E
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# RE
+	li $v0, 31
+	li $a0, 74 # MIDI note for D
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# MI
+	li $v0, 31
+	li $a0, 76 # MIDI note for E
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# DO#
+	li $v0, 31
+	li $a0, 73 # MIDI note for C#
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# RE
+	li $v0, 31
+	li $a0, 74 # MIDI note for D
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SI
+	li $v0, 31
+	li $a0, 71 # MIDI note for B
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# DO#
+	li $v0, 31
+	li $a0, 73 # MIDI note for C#
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# RE
+	li $v0, 31
+	li $a0, 74 # MIDI note for D
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# MI
+	li $v0, 31
+	li $a0, 76 # MIDI note for E
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# FA#
+	li $v0, 31
+	li $a0, 66 # MIDI note for F#
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# SOL
+	li $v0, 31
+	li $a0, 67 # MIDI note for G
+	li $a1, 500 # Duración en milisegundos
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+	# LA
+	li $v0, 31
+	li $a0, 69 # MIDI note for A
+	li $a1, 500 # Duración en milisegundos 
+	li $a2, 0 # Instrumento (piano)
+	li $a3, 72 # Volumen
+	syscall
+
+	li $v0, 32
+	li $a0, 100 # Sleep for 100 milliseconds
+	syscall
+	
+    jr $ra
+
+rev:
+    # Implement reverse command
+    jr $ra
+
+cat:
+    # Implement cat command
+    jr $ra
+
+exit:
+    # Implement exit command
+    li $v0, 10
+    syscall
+
